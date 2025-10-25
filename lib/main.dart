@@ -36,6 +36,8 @@ class _PortfolioHomeState extends State<PortfolioHome> {
   final GlobalKey _aboutKey = GlobalKey();
   final GlobalKey _skillsKey = GlobalKey();
   final GlobalKey _projectsKey = GlobalKey();
+  final GlobalKey _experienceKey = GlobalKey();
+  final GlobalKey _educationKey = GlobalKey();
   final GlobalKey _achievementsKey = GlobalKey();
   final GlobalKey _contactKey = GlobalKey();
 
@@ -99,6 +101,20 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                   onPressed: () => _scrollToSection(_projectsKey),
                   child: const Text(
                     'Projects',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => _scrollToSection(_experienceKey),
+                  child: const Text(
+                    'Experience',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => _scrollToSection(_educationKey),
+                  child: const Text(
+                    'Education',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -172,6 +188,22 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                     onTap: () => _scrollToSection(_projectsKey),
                   ),
                   ListTile(
+                    leading: const Icon(Icons.business, color: Colors.blue),
+                    title: const Text(
+                      'Experience',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onTap: () => _scrollToSection(_experienceKey),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.school, color: Colors.blue),
+                    title: const Text(
+                      'Education',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onTap: () => _scrollToSection(_educationKey),
+                  ),
+                  ListTile(
                     leading: const Icon(Icons.emoji_events, color: Colors.blue),
                     title: const Text(
                       'Achievements',
@@ -199,6 +231,8 @@ class _PortfolioHomeState extends State<PortfolioHome> {
             _buildAboutSection(),
             _buildSkillsSection(),
             _buildProjectsSection(),
+            _buildExperienceSection(),
+            _buildEducationSection(),
             _buildAchievementsSection(),
             _buildContactSection(),
             _buildFooter(),
@@ -259,16 +293,10 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                   child: Column(
                     children: [
                       Container(
-                        width: isMobile ? 100 : 150,
-                        height: isMobile ? 100 : 150,
+                        width: isMobile ? 120 : 170,
+                        height: isMobile ? 120 : 170,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          gradient: LinearGradient(
-                            colors: [
-                              Colors.blue.shade400,
-                              Colors.purple.shade400,
-                            ],
-                          ),
                           boxShadow: [
                             BoxShadow(
                               color: Colors.blue.withOpacity(0.5),
@@ -277,11 +305,17 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                             ),
                           ],
                         ),
-                        child: Center(
-                          child: Icon(
-                            Icons.person,
-                            size: isMobile ? 50 : 80,
-                            color: Colors.white,
+                        child: ClipOval(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.blue.shade400,
+                                  Colors.purple.shade400,
+                                ],
+                              ),
+                            ),
+                            child: _buildProfileImage(isMobile),
                           ),
                         ),
                       ),
@@ -297,7 +331,7 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                       ),
                       SizedBox(height: isMobile ? 12 : 16),
                       Text(
-                        'Java Backend Developer',
+                        'Freelance Java & Flutter Developer',
                         style: TextStyle(
                           fontSize: isMobile ? 18 : 24,
                           color: Colors.blue,
@@ -307,7 +341,7 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                       ),
                       SizedBox(height: isMobile ? 6 : 8),
                       Text(
-                        'Aspiring Professional Software Engineer',
+                        'Building Scalable Backends & Cross-Platform Mobile Apps',
                         style: TextStyle(
                           fontSize: isMobile ? 14 : 18,
                           color: Colors.white70,
@@ -342,6 +376,15 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                                   ),
                                   isMobile: true,
                                 ),
+                                const SizedBox(height: 12),
+                                _buildSocialButton(
+                                  icon: Icons.link,
+                                  label: 'LinkedIn',
+                                  onTap: () => _launchUrl(
+                                    'https://linkedin.com/in/ogabek-norpulatov',
+                                  ),
+                                  isMobile: true,
+                                ),
                               ],
                             )
                           : Row(
@@ -368,6 +411,15 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                                   label: 'GitHub',
                                   onTap: () => _launchUrl(
                                     'https://github.com/NorpulatovDev',
+                                  ),
+                                  isMobile: false,
+                                ),
+                                const SizedBox(width: 16),
+                                _buildSocialButton(
+                                  icon: Icons.link,
+                                  label: 'LinkedIn',
+                                  onTap: () => _launchUrl(
+                                    'https://linkedin.com/in/ogabek-norpulatov',
                                   ),
                                   isMobile: false,
                                 ),
@@ -418,9 +470,9 @@ class _PortfolioHomeState extends State<PortfolioHome> {
               maxWidth: isMobile ? double.infinity : 800,
             ),
             child: Text(
-              'Passionate backend developer with strong problem-solving skills and hands-on experience in Java and Spring Boot. '
-              'Skilled at building scalable RESTful services, integrating databases, and developing clean, maintainable code. '
-              'Dedicated to continuous learning and growing into a professional software engineer capable of delivering impactful solutions.',
+              'I\'m a software developer who works with Java (Spring Boot) and Flutter. I like building clean, reliable, and easy-to-use applications — both backend systems and mobile apps. '
+              'As a freelancer, I\'ve worked on different projects where I built APIs, designed databases, and created mobile app interfaces. I enjoy solving real problems and want to build apps that help people, especially in education and public services. '
+              'I always try to write clear and maintainable code and follow good practices like MVC/MVVM architecture, dependency injection, and secure authentication.',
               style: TextStyle(
                 fontSize: isMobile ? 14 : 18,
                 color: Colors.white70,
@@ -438,18 +490,49 @@ class _PortfolioHomeState extends State<PortfolioHome> {
               _buildLanguageChip('Uzbek', 'Native', Colors.blue, isMobile),
               _buildLanguageChip(
                 'English',
-                'Upper Intermediate',
+                'Professional Working',
                 Colors.green,
                 isMobile,
               ),
-              _buildLanguageChip(
-                'Turkish',
-                'Intermediate',
-                Colors.red,
-                isMobile,
-              ),
-              _buildLanguageChip('Korean', 'Beginner', Colors.purple, isMobile),
+              _buildLanguageChip('Korean', 'Elementary', Colors.purple, isMobile),
             ],
+          ),
+          SizedBox(height: isMobile ? 30 : 40),
+          // Certifications Section
+          Container(
+            padding: EdgeInsets.all(isMobile ? 20 : 24),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.05),
+              borderRadius: BorderRadius.circular(15),
+              border: Border.all(color: Colors.green.withOpacity(0.3)),
+            ),
+            child: Column(
+              children: [
+                Icon(
+                  Icons.verified,
+                  color: Colors.green,
+                  size: isMobile ? 32 : 40,
+                ),
+                SizedBox(height: isMobile ? 12 : 16),
+                Text(
+                  'Certified',
+                  style: TextStyle(
+                    fontSize: isMobile ? 18 : 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(height: isMobile ? 8 : 12),
+                Text(
+                  'Flutter & Dart - The Complete Guide [2023 Edition]',
+                  style: TextStyle(
+                    fontSize: isMobile ? 14 : 16,
+                    color: Colors.white70,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -500,16 +583,16 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                 alignment: WrapAlignment.center,
                 children: [
                   _buildSkillCard(
-                    'Languages',
-                    ['Java', 'Dart'],
-                    Icons.code,
+                    'Backend',
+                    ['Java', 'Spring Boot', 'REST APIs', 'JPA/Hibernate'],
+                    Icons.computer,
                     Colors.blue,
                     cardWidth,
                   ),
                   _buildSkillCard(
-                    'Frameworks',
-                    ['Spring Boot', 'Flutter'],
-                    Icons.widgets,
+                    'Mobile',
+                    ['Dart', 'Flutter', 'Riverpod', 'Bloc', 'Dio', 'Firebase'],
+                    Icons.phone_android,
                     Colors.green,
                     cardWidth,
                   ),
@@ -521,15 +604,15 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                     cardWidth,
                   ),
                   _buildSkillCard(
-                    'Tools & Tech',
-                    ['Maven', 'Git & GitHub', 'REST API', 'Docker', 'Linux'],
+                    'Tools & APIs',
+                    ['Git', 'Docker', 'Postman', 'Swagger API', 'IntelliJ IDEA', 'VS Code'],
                     Icons.build,
                     Colors.purple,
                     cardWidth,
                   ),
                   _buildSkillCard(
                     'Architecture',
-                    ['MVVM (Flutter)', 'MVC (Spring Boot)'],
+                    ['MVC', 'MVVM', 'Dependency Injection', 'JWT Authentication'],
                     Icons.architecture,
                     Colors.pink,
                     cardWidth,
@@ -576,32 +659,140 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                 alignment: WrapAlignment.center,
                 children: [
                   _buildProjectCard(
-                    'LMS System',
+                    'EduNova LMS',
                     'Learning Management System',
-                    'Built with Spring Boot backend and Flutter frontend. Features include authentication, teacher/student management, and payment tracking.',
-                    ['Spring Boot', 'Flutter', 'PostgreSQL'],
+                    'Learning Management System built with Spring Boot + PostgreSQL. Features authentication (JWT), RESTful APIs for teachers, students, reports. Future-ready backend for an education platform.',
+                    ['Spring Boot', 'PostgreSQL', 'JWT', 'REST API'],
                     Colors.blue,
                     cardWidth,
+                    'https://github.com/NorpulatovDev/edunova',
                   ),
                   _buildProjectCard(
-                    'Expense Tracker',
-                    'Financial Management App',
-                    'Developed RESTful API with JWT authentication and PostgreSQL database. Enables users to securely manage expenses and transactions.',
-                    ['Spring Boot', 'JWT', 'PostgreSQL'],
+                    'iStudy LMS Backend',
+                    'Learning Management System Backend',
+                    'A Learning Management System (LMS) backend built with Spring Boot to manage courses, students, and teachers. Role-based authentication with clean architecture principles.',
+                    ['Spring Boot', 'PostgreSQL', 'JWT', 'Clean Architecture'],
                     Colors.green,
                     cardWidth,
+                    'https://github.com/NorpulatovDev/iStudy',
                   ),
                   _buildProjectCard(
-                    'Quiz App',
-                    'Interactive Learning Platform',
-                    'Created a JSON-based quiz system using Spring Boot. Designed modular architecture for flexibility and reusability in learning environments.',
-                    ['Spring Boot', 'JSON', 'REST API'],
+                    'iStudy LMS Mobile',
+                    'Flutter LMS Client App',
+                    'Flutter-based LMS client app for students and teachers to access learning materials on mobile and web platforms. Built with MVVM architecture and Riverpod for state management.',
+                    ['Flutter', 'Dart', 'Bloc', 'MVVM', 'Riverpod'],
                     Colors.purple,
                     cardWidth,
+                    'https://github.com/NorpulatovDev/iStudyMobile',
                   ),
                 ],
               );
             },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildExperienceSection() {
+    final isMobile = _isMobile(context);
+
+    return Container(
+      key: _experienceKey,
+      padding: EdgeInsets.symmetric(
+        vertical: isMobile ? 40 : 80,
+        horizontal: isMobile ? 20 : 40,
+      ),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            const Color(0xFF0A0E27),
+            Colors.green.shade900.withOpacity(0.1),
+            const Color(0xFF0A0E27),
+          ],
+        ),
+      ),
+      child: Column(
+        children: [
+          Text(
+            'Work Experience',
+            style: TextStyle(
+              fontSize: isMobile ? 28 : 36,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          SizedBox(height: isMobile ? 30 : 60),
+          _buildExperienceItem(
+            'Freelancing',
+            'Freelance Web Developer',
+            'June 2024 - Present',
+            'Samarkand, Uzbekistan',
+            'Created more than 3 real projects. Building Backend and Frontend projects with Spring Boot and Flutter.',
+            Colors.blue,
+            isMobile,
+          ),
+          SizedBox(height: isMobile ? 24 : 32),
+          _buildExperienceItem(
+            'Smart Software',
+            'Mobile Developer (Internship)',
+            'June 2023 - July 2023',
+            'Tashkent, Uzbekistan',
+            'Worked as a mobile developer for internship during a month. Left due to lack of knowledge around the team and limited learning opportunities.',
+            Colors.orange,
+            isMobile,
+          ),
+          SizedBox(height: isMobile ? 24 : 32),
+          _buildExperienceItem(
+            'Codeschool IT Academy',
+            'Mobile Developer & Assistant Teacher',
+            'January 2023 - May 2023',
+            'Samarqand Region, Uzbekistan',
+            'Worked as an assistant teacher and as a mobile developer, helping students learn mobile development while gaining practical experience.',
+            Colors.purple,
+            isMobile,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEducationSection() {
+    final isMobile = _isMobile(context);
+
+    return Container(
+      key: _educationKey,
+      padding: EdgeInsets.symmetric(
+        vertical: isMobile ? 40 : 80,
+        horizontal: isMobile ? 20 : 40,
+      ),
+      child: Column(
+        children: [
+          Text(
+            'Education',
+            style: TextStyle(
+              fontSize: isMobile ? 28 : 36,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          SizedBox(height: isMobile ? 30 : 60),
+          _buildEducationItem(
+            'Seojeong College',
+            'Bachelor\'s degree, Tourism and Travel Services Management',
+            'September 2024 - May 2025',
+            Colors.blue,
+            isMobile,
+          ),
+          SizedBox(height: isMobile ? 24 : 32),
+          _buildEducationItem(
+            'Samarkand Institute of Economics and Service',
+            'Bachelor\'s degree, Economics',
+            'September 2023 - May 2024',
+            Colors.green,
+            isMobile,
           ),
         ],
       ),
@@ -631,7 +822,7 @@ class _PortfolioHomeState extends State<PortfolioHome> {
       child: Column(
         children: [
           Text(
-            'Achievements',
+            'Achievements & Problem Solving',
             style: TextStyle(
               fontSize: isMobile ? 28 : 36,
               fontWeight: FontWeight.bold,
@@ -648,6 +839,7 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                       Icons.emoji_events,
                       Colors.amber,
                       isMobile,
+                      () => _launchUrl('https://www.codewars.com/users/norpulatovogabek'),
                     ),
                     const SizedBox(height: 20),
                     _buildAchievementCard(
@@ -656,11 +848,32 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                       Icons.psychology,
                       Colors.orange,
                       isMobile,
+                      () => _launchUrl('https://leetcode.com/ogabek005'),
+                    ),
+                    const SizedBox(height: 20),
+                    _buildAchievementCard(
+                      '3+',
+                      'Real Projects Delivered',
+                      Icons.check_circle,
+                      Colors.green,
+                      isMobile,
+                      null,
+                    ),
+                    const SizedBox(height: 20),
+                    _buildAchievementCard(
+                      '1+',
+                      'Years of Freelancing',
+                      Icons.work,
+                      Colors.blue,
+                      isMobile,
+                      null,
                     ),
                   ],
                 )
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              : Wrap(
+                  spacing: 30,
+                  runSpacing: 30,
+                  alignment: WrapAlignment.center,
                   children: [
                     _buildAchievementCard(
                       '600+',
@@ -668,14 +881,31 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                       Icons.emoji_events,
                       Colors.amber,
                       isMobile,
+                      () => _launchUrl('https://www.codewars.com/users/norpulatovogabek'),
                     ),
-                    const SizedBox(width: 40),
                     _buildAchievementCard(
                       '50+',
                       'LeetCode Problems',
                       Icons.psychology,
                       Colors.orange,
                       isMobile,
+                      () => _launchUrl('https://leetcode.com/ogabek005'),
+                    ),
+                    _buildAchievementCard(
+                      '3+',
+                      'Real Projects Delivered',
+                      Icons.check_circle,
+                      Colors.green,
+                      isMobile,
+                      null,
+                    ),
+                    _buildAchievementCard(
+                      '1+',
+                      'Years of Freelancing',
+                      Icons.work,
+                      Colors.blue,
+                      isMobile,
+                      null,
                     ),
                   ],
                 ),
@@ -705,7 +935,7 @@ class _PortfolioHomeState extends State<PortfolioHome> {
           ),
           SizedBox(height: isMobile ? 20 : 40),
           Text(
-            'Feel free to reach out for collaborations or just a friendly chat!',
+            'I\'m open to freelance projects, team collaborations, and full-time roles where I can create useful and high-quality software.',
             style: TextStyle(
               fontSize: isMobile ? 14 : 18,
               color: Colors.white70,
@@ -741,6 +971,13 @@ class _PortfolioHomeState extends State<PortfolioHome> {
                     'GitHub',
                     'github.com/NorpulatovDev',
                     () => _launchUrl('https://github.com/NorpulatovDev'),
+                    cardWidth,
+                  ),
+                  _buildContactCard(
+                    Icons.link,
+                    'LinkedIn',
+                    'linkedin.com/in/ogabeknorpulatov',
+                    () => _launchUrl('https://linkedin.com/in/ogabeknorpulatov'),
                     cardWidth,
                   ),
                 ],
@@ -893,6 +1130,7 @@ class _PortfolioHomeState extends State<PortfolioHome> {
     List<String> tech,
     Color color,
     double width,
+    String? githubUrl,
   ) {
     final isMobile = _isMobile(context);
 
@@ -912,13 +1150,25 @@ class _PortfolioHomeState extends State<PortfolioHome> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: isMobile ? 20 : 24,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: isMobile ? 20 : 24,
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
+                ),
+              ),
+              if (githubUrl != null)
+                IconButton(
+                  onPressed: () => _launchUrl(githubUrl),
+                  icon: Icon(Icons.open_in_new, color: color, size: 20),
+                ),
+            ],
           ),
           const SizedBox(height: 8),
           Text(
@@ -960,46 +1210,176 @@ class _PortfolioHomeState extends State<PortfolioHome> {
     );
   }
 
+  Widget _buildExperienceItem(
+    String company,
+    String position,
+    String duration,
+    String location,
+    String description,
+    Color color,
+    bool isMobile,
+  ) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(isMobile ? 20 : 24),
+      margin: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 0),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            company,
+            style: TextStyle(
+              fontSize: isMobile ? 20 : 24,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            position,
+            style: TextStyle(
+              fontSize: isMobile ? 16 : 18,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            '$duration • $location',
+            style: TextStyle(
+              fontSize: isMobile ? 12 : 14,
+              color: Colors.white70,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            description,
+            style: TextStyle(
+              fontSize: isMobile ? 13 : 14,
+              color: Colors.white70,
+              height: 1.5,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEducationItem(
+    String institution,
+    String degree,
+    String duration,
+    Color color,
+    bool isMobile,
+  ) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(isMobile ? 20 : 24),
+      margin: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 0),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: color.withOpacity(0.3)),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.school, color: color, size: isMobile ? 32 : 40),
+          SizedBox(width: isMobile ? 16 : 20),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  institution,
+                  style: TextStyle(
+                    fontSize: isMobile ? 18 : 20,
+                    fontWeight: FontWeight.bold,
+                    color: color,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  degree,
+                  style: TextStyle(
+                    fontSize: isMobile ? 14 : 16,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  duration,
+                  style: TextStyle(
+                    fontSize: isMobile ? 12 : 14,
+                    color: Colors.white70,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildAchievementCard(
     String number,
     String label,
     IconData icon,
     Color color,
     bool isMobile,
+    VoidCallback? onTap,
   ) {
-    return Container(
-      width: isMobile ? double.infinity : 250,
-      padding: EdgeInsets.all(isMobile ? 24 : 32),
-      margin: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 0),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [color.withOpacity(0.3), color.withOpacity(0.1)],
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: isMobile ? double.infinity : 250,
+        padding: EdgeInsets.all(isMobile ? 24 : 32),
+        margin: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 0),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [color.withOpacity(0.3), color.withOpacity(0.1)],
+          ),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: color, width: 2),
         ),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: color, width: 2),
-      ),
-      child: Column(
-        children: [
-          Icon(icon, size: isMobile ? 48 : 64, color: color),
-          SizedBox(height: isMobile ? 12 : 16),
-          Text(
-            number,
-            style: TextStyle(
-              fontSize: isMobile ? 36 : 48,
-              fontWeight: FontWeight.bold,
-              color: color,
+        child: Column(
+          children: [
+            Icon(icon, size: isMobile ? 48 : 64, color: color),
+            SizedBox(height: isMobile ? 12 : 16),
+            Text(
+              number,
+              style: TextStyle(
+                fontSize: isMobile ? 36 : 48,
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
             ),
-          ),
-          SizedBox(height: isMobile ? 6 : 8),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: isMobile ? 14 : 16,
-              color: Colors.white70,
+            SizedBox(height: isMobile ? 6 : 8),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: isMobile ? 14 : 16,
+                color: Colors.white70,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-        ],
+            if (onTap != null) ...[
+              const SizedBox(height: 8),
+              Icon(
+                Icons.open_in_new,
+                size: 16,
+                color: Colors.white54,
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }
@@ -1054,6 +1434,46 @@ class _PortfolioHomeState extends State<PortfolioHome> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildProfileImage(bool isMobile) {
+    // Option 1: Use network image (if you have an online image URL)
+    return Image.network(
+      'https://avatars.githubusercontent.com/u/186775495?s=400&u=e3d0a3f1e37ee44f1885c7f8d186b359fcce9da2&v=4',
+      width: isMobile ? 120 : 170,
+      height: isMobile ? 120 : 170,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) => _buildFallbackAvatar(isMobile),
+    );
+    
+    // Option 2: Use asset image (recommended)
+    // return Image.asset(
+    //   'assets/images/me_without_background.jpg', // Put your image here
+    //   width: isMobile ? 120 : 170,
+    //   height: isMobile ? 120 : 170,
+    //   fit: BoxFit.cover,
+    //   errorBuilder: (context, error, stackTrace) => _buildFallbackAvatar(isMobile),
+    // );
+  }
+
+  Widget _buildFallbackAvatar(bool isMobile) {
+    return Container(
+      width: isMobile ? 120 : 170,
+      height: isMobile ? 120 : 170,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Colors.blue.shade400,
+            Colors.purple.shade400,
+          ],
+        ),
+      ),
+      child: Icon(
+        Icons.person,
+        size: isMobile ? 60 : 85,
+        color: Colors.white,
       ),
     );
   }
